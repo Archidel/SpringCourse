@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd 
+	 					http://www.springframework.org/schema/util 
+	 					http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+	<bean id="controller" class="com.epam.theater.controller.Controller" scope="singleton">
+		<property name="commands">
+			<map>
+				<entry key="user_save_command" value-ref="save_user_command" />
+				<entry key="user_remove_command" value-ref="remove_user_command" />
+				<entry key="wrong_command" value-ref="wrong_command" />
+				<entry key="get_all_users_command" value-ref="get_all_users_command" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="wrong_command"
+		class="com.epam.theater.controller.command.impl.WrongCommand" />
+
+	<bean id="save_user_command" class="com.epam.theater.controller.command.impl.SaveUser">
+		<property name="userService" ref="userService" />
+	</bean>
+
+	<bean id="remove_user_command" class="com.epam.theater.controller.command.impl.RemoveUser">
+		<property name="userService" ref="userService" />
+	</bean>
+
+	<bean id="get_all_users_command" class="com.epam.theater.controller.command.impl.GetAllUsers">
+		<property name="userService" ref="userService" />
+	</bean>
+
+	<bean id="userService" class="com.epam.theater.service.impl.UserServiceImpl" autowire="byName">
+		<property name="userDao" ref="userDao" />
+	</bean>
+
+	<bean id="dataBase" class="com.epam.theater.bean.DataBase">
+
+		<property name="users">
+			<list>
+				<ref bean="user1"/>
+				<ref bean="user2"/>
+				<ref bean="user3"/>
+			</list>
+		</property>
+
+	</bean>
+
+	<bean id="userDao" class="com.epam.theater.dao.impl.UserDaoImpl" autowire="byName">
+		<property name="dataBase" ref="dataBase" />
+	</bean>
+
+	<bean id="user1" class="com.epam.theater.bean.User">
+		<constructor-arg index="0" value="Albert" />
+		<constructor-arg index="1" value="Zarankovich"  />
+		<constructor-arg index="2" value="Albert_Zarankovich@epam.com" />
+	</bean>
+
+	<bean id="user2" class="com.epam.theater.bean.User">
+		<constructor-arg index="0" value="Peter" />
+		<constructor-arg index="1" value="Burko" />
+		<constructor-arg index="2" value="Peter_Burko@epam.com" />
+	</bean>
+
+	<bean id="user3" class="com.epam.theater.bean.User">
+		<constructor-arg index="0" value="Nikita" />
+		<constructor-arg index="1" value="Mihalchuk" />
+		<constructor-arg index="2" value="Nikita_Mihalchuk@epam.com" />
+	</bean>
+
+	<bean id="user4" class="com.epam.theater.bean.User">
+		<constructor-arg index="0" value="Andrey" />
+		<constructor-arg index="1" value="Meleh" />
+		<constructor-arg index="2" value="Andrey_Meleh@epam.com" />
+	</bean>
+	
+	<bean id="user5" class="com.epam.theater.bean.User">
+		<constructor-arg index="0" value="Alex" />
+		<constructor-arg index="1" value="Zaycev" />
+		<constructor-arg index="2" value="Alex_Zaycev@epam.com" />
+	</bean>
+
+</beans>
