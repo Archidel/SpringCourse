@@ -15,4 +15,8 @@ public interface UserService {
 	void save(String firstName, String lastName, String email) throws ServiceException;
 
 	Collection<User> getAll() throws ServiceException;
+
+	void remove(String id) throws ServiceException;
+	
+	User getById(String id) throws ServiceException;
 }

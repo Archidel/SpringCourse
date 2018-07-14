@@ -9,10 +9,11 @@
 	<bean id="controller" class="com.epam.theater.controller.Controller" scope="singleton">
 		<property name="commands">
 			<map>
-				<entry key="user_save_command" value-ref="save_user_command" />
-				<entry key="user_remove_command" value-ref="remove_user_command" />
 				<entry key="wrong_command" value-ref="wrong_command" />
-				<entry key="get_all_users_command" value-ref="get_all_users_command" />
+				<entry key="user_save" value-ref="save_user_command" />
+				<entry key="user_remove" value-ref="remove_user_command" />
+				<entry key="get_all_users" value-ref="get_all_users_command" />
+				<entry key="get_user_by_id" value-ref="get_user_by_id_command" />
 			</map>
 		</property>
 	</bean>
@@ -20,15 +21,19 @@
 	<bean id="wrong_command"
 		class="com.epam.theater.controller.command.impl.WrongCommand" />
 
-	<bean id="save_user_command" class="com.epam.theater.controller.command.impl.SaveUser">
+	<bean id="save_user_command" class="com.epam.theater.controller.command.impl.user.SaveUser">
 		<property name="userService" ref="userService" />
 	</bean>
 
-	<bean id="remove_user_command" class="com.epam.theater.controller.command.impl.RemoveUser">
+	<bean id="remove_user_command" class="com.epam.theater.controller.command.impl.user.RemoveUser">
 		<property name="userService" ref="userService" />
 	</bean>
 
-	<bean id="get_all_users_command" class="com.epam.theater.controller.command.impl.GetAllUsers">
+	<bean id="get_all_users_command" class="com.epam.theater.controller.user.command.impl.user.GetAllUsers">
+		<property name="userService" ref="userService" />
+	</bean>
+
+	<bean id="get_user_by_id_command" class="com.epam.theater.controller.user.command.impl.user.GetUerById">
 		<property name="userService" ref="userService" />
 	</bean>
 

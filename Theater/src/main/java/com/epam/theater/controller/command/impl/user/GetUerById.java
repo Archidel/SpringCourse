@@ -1,30 +1,29 @@
-package com.epam.theater.controller.command.impl;
+package com.epam.theater.controller.command.impl.user;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.epam.theater.bean.User;
 import com.epam.theater.controller.command.Command;
 import com.epam.theater.service.UserService;
 import com.epam.theater.service.exception.ServiceException;
 
-public class SaveUser implements Command {
-	private static final Logger logger = LoggerFactory.getLogger(SaveUser.class);
+public class GetUerById implements Command {
+	private static final Logger logger = LoggerFactory.getLogger(GetUerById.class);
 
 	private UserService userService;
 
 	@Override
 	public String execute(String request) {
 		String[] userData = request.split(SEPARATOR);
-		String firstName = userData[0];
-		String lastName = userData[1];
-		String email = userData[2];
+		String id = userData[0];
 		String response = null;
-
+		
 		try {
-			userService.save(firstName, lastName, email);
-			response = "Save user has been successful";
+			User user = userService.getById(id);
+			response = user.toString();
 		} catch (ServiceException e) {
-			response = "Error user save";
+			response = "Error getting of user";
 			logger.error("Error of executing command", e);
 		}
 

@@ -17,16 +17,25 @@ public class Application {
 		String response = null;
 		
 		//Save user
-		command = Controller.getCommand("user_save_command");
+		command = Controller.getCommand("user_save");
 		response = command.execute("Vladimir Ulyanov Vladimir_Ulyanov@epam.com 26.08.1995");
 		printResponse(response);
 
 		//Get all users from DB
-		command = Controller.getCommand("get_all_users_command");
+		command = Controller.getCommand("get_all_users");
 		response = command.execute(null);
 		printResponse(response);
 	
-	
+		//get user by id
+		command = Controller.getCommand("get_user_by_id");
+		response = command.execute("2");
+		printResponse(response);
+		
+		//remove user by id
+		command = Controller.getCommand("user_remove");
+		response = command.execute("3");
+		printResponse(response);
+
 	}
 
 	private static void printResponse(String response) {

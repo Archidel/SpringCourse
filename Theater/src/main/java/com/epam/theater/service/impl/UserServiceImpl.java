@@ -20,7 +20,13 @@ public class UserServiceImpl implements UserService {
 			throw new ServiceException("Invalid user data");
 		}
 
-		userDao.save(new User(firstName, lastName, email));
+		User user = new User();
+		user.setId(userDao.getFreeId());
+		user.setFirstName(firstName);
+		user.setLastName(lastName);
+		user.setEmail(email);
+
+		userDao.save(user);
 	}
 
 	@Override
@@ -31,6 +37,30 @@ public class UserServiceImpl implements UserService {
 		}
 
 		return users;
+	}
+
+	@Override
+	public void remove(String id) throws ServiceException {
+		Long userId = Long.parseLong(id);
+		User user = userDao.getById(userId);
+
+		if (user == null) {
+			throw new ServiceException("User not found");
+		}
+
+		userDao.remove(user);
+	}
+
+	@Override
+	public User getById(String id) throws ServiceException {
+		Long userId = Long.parseLong(id);
+		User user = userDao.getById(userId);
+		
+		if (user == null) {
+			throw new ServiceException("User not found");
+		}
+
+		return user;
 	}
 
 }

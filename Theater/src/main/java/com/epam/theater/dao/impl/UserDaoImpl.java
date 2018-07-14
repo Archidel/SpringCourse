@@ -1,7 +1,6 @@
 package com.epam.theater.dao.impl;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 import com.epam.theater.bean.DataBase;
@@ -19,13 +18,21 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public void remove(User user) {
-
+		dataBase.getUsers().remove(user);
 	}
 
 	@Override
 	public User getById(Long id) {
-		dataBase.getUsers().
-		return null;
+		Set<User> users = dataBase.getUsers();
+		User user = null;
+		for (User iterUser : users) {
+			if (iterUser.getId() == id) {
+				user = iterUser;
+				break;
+			}
+		}
+
+		return user;
 	}
 
 	@Override
@@ -38,14 +45,31 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public int getFreeId() {
-		Set<User> user = dataBase.getUsers();
+	public Long getFreeId() {
+		Set<User> users = dataBase.getUsers();
+		Long userSize = (long) users.size();
+		Long freeId;
 
-		
-		
-		int userSize = dataBase.getUsers().size();
+		while (true) {
+			if (idIsFree(users, userSize)) {
+				freeId = userSize;
+				break;
+			} else {
+				idIsFree(users, userSize++);
+			}
+		}
 
-		return 0;
+		return freeId;
+	}
+
+	private boolean idIsFree(Set<User> users, Long id) {
+		boolean isFree = true;
+		for (User user : users) {
+			if (user.getId() == id) {
+				isFree = false;
+			}
+		}
+		return isFree;
 	}
 
 }

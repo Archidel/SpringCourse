@@ -1,4 +1,4 @@
-package com.epam.theater.controller.command.impl;
+package com.epam.theater.controller.command.impl.user;
 
 import java.util.Collection;
 
