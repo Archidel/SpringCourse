@@ -27,14 +27,14 @@ public class Application {
 		printResponse(response);
 	
 		//get user by id
-		command = Controller.getCommand("get_user_by_id");
+/*		command = Controller.getCommand("get_user_by_id");
 		response = command.execute("2");
-		printResponse(response);
+		printResponse(response);*/
 		
 		//remove user by id
-		command = Controller.getCommand("user_remove");
+/*		command = Controller.getCommand("user_remove");
 		response = command.execute("3");
-		printResponse(response);
+		printResponse(response);*/
 
 	}
 

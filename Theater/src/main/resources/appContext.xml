@@ -29,11 +29,11 @@
 		<property name="userService" ref="userService" />
 	</bean>
 
-	<bean id="get_all_users_command" class="com.epam.theater.controller.user.command.impl.user.GetAllUsers">
+	<bean id="get_all_users_command" class="com.epam.theater.controller.command.impl.user.GetAllUsers">
 		<property name="userService" ref="userService" />
 	</bean>
 
-	<bean id="get_user_by_id_command" class="com.epam.theater.controller.user.command.impl.user.GetUerById">
+	<bean id="get_user_by_id_command" class="com.epam.theater.controller.command.impl.user.GetUerById">
 		<property name="userService" ref="userService" />
 	</bean>
 
@@ -48,6 +48,14 @@
 				<ref bean="user1"/>
 				<ref bean="user2"/>
 				<ref bean="user3"/>
+			</list>
+		</property>
+
+		<property name="auditoriums">
+			<list>
+				<ref bean="auditorium1"/>
+				<ref bean="auditorium2"/>
+				<ref bean="auditorium3"/>
 			</list>
 		</property>
 
@@ -86,5 +94,14 @@
 		<constructor-arg index="1" value="Zaycev" />
 		<constructor-arg index="2" value="Alex_Zaycev@epam.com" />
 	</bean>
+
+
+	<bean id="auditorium1" class="com.epam.theater.bean.Auditorium">
+		<constructor-arg index="0" value="Auditorium1" />
+		<constructor-arg index="1" value="100"  />
+		<constructor-arg index="2" value="Albert_Zarankovich@epam.com" />
+	</bean>
+	
+	
 
 </beans>

@@ -55,7 +55,22 @@ public class UserServiceImpl implements UserService {
 	public User getById(String id) throws ServiceException {
 		Long userId = Long.parseLong(id);
 		User user = userDao.getById(userId);
-		
+
+		if (user == null) {
+			throw new ServiceException("User not found");
+		}
+
+		return user;
+	}
+
+	@Override
+	public User getUserByEmail(String email) throws ServiceException {
+		if (UserService.valid(email)) {
+			throw new ServiceException("Invalid email");
+		}
+
+		User user = userDao.getUserByEmail(email);
+
 		if (user == null) {
 			throw new ServiceException("User not found");
 		}

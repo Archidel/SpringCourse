@@ -1,6 +1,7 @@
 package com.epam.theater.dao.impl;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.Set;
 
 import com.epam.theater.bean.DataBase;
@@ -70,6 +71,12 @@ public class UserDaoImpl implements UserDao {
 			}
 		}
 		return isFree;
+	}
+
+	@Override
+	public User getUserByEmail(String email) {
+		Optional<User> optinalUsers = dataBase.getUsers().stream().filter(p -> p.getEmail().equalsIgnoreCase(email)).findFirst();
+		return optinalUsers.orElse(null);
 	}
 
 }
