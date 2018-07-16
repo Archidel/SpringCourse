@@ -15,21 +15,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void save(String firstName, String lastName, String email) throws ServiceException {
-		if (!UserService.valid(firstName, lastName, email)) {
-			throw new ServiceException("Invalid user data");
-		}
-
-		User user = new User();
-		user.setId(userDao.getFreeId());
-		user.setFirstName(firstName);
-		user.setLastName(lastName);
-		user.setEmail(email);
-
-		userDao.save(user);
-	}
-
-	@Override
 	public Collection<User> getAll() throws ServiceException {
 		Collection<User> users = userDao.getAll();
 		if (users == null) {
@@ -40,10 +25,18 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void remove(String id) throws ServiceException {
-		Long userId = Long.parseLong(id);
-		User user = userDao.getById(userId);
+	public User getUserByEmail(String email) throws ServiceException {
+		User user = userDao.getUserByEmail(email);
 
+		if (user == null) {
+			throw new ServiceException("User not found");
+		}
+
+		return user;
+	}
+
+	@Override
+	public void remove(User user) throws ServiceException {
 		if (user == null) {
 			throw new ServiceException("User not found");
 		}
@@ -52,9 +45,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getById(String id) throws ServiceException {
-		Long userId = Long.parseLong(id);
-		User user = userDao.getById(userId);
+	public User getById(Long id) throws ServiceException {
+		User user = userDao.getById(id);
 
 		if (user == null) {
 			throw new ServiceException("User not found");
@@ -64,18 +56,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUserByEmail(String email) throws ServiceException {
-		if (UserService.valid(email)) {
-			throw new ServiceException("Invalid email");
-		}
-
-		User user = userDao.getUserByEmail(email);
-
-		if (user == null) {
-			throw new ServiceException("User not found");
-		}
-
-		return user;
+	public void save(User user) {
+		userDao.save(user);
 	}
 
 }

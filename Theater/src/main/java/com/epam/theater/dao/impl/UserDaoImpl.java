@@ -24,16 +24,8 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User getById(Long id) {
-		Set<User> users = dataBase.getUsers();
-		User user = null;
-		for (User iterUser : users) {
-			if (iterUser.getId() == id) {
-				user = iterUser;
-				break;
-			}
-		}
-
-		return user;
+		Optional<User> optinalUsers = dataBase.getUsers().stream().filter(p -> p.getId().equals(id)).findFirst();
+		return optinalUsers.orElse(null);
 	}
 
 	@Override

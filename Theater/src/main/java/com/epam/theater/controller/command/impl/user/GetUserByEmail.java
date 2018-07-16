@@ -8,22 +8,22 @@ import com.epam.theater.controller.command.Command;
 import com.epam.theater.service.UserService;
 import com.epam.theater.service.exception.ServiceException;
 
-public class GetUerById implements Command {
-	private static final Logger logger = LoggerFactory.getLogger(GetUerById.class);
+public class GetUserByEmail implements Command {
+	private static final Logger logger = LoggerFactory.getLogger(GetUserByEmail.class);
 
 	private UserService userService;
 
 	@Override
 	public String execute(String request) {
-		String[] userData = request.split(SEPARATOR);
-		String id = userData[0];
 		String response = null;
-		
+		String[] userData = request.split(SEPARATOR);
+		String email = userData[0];
+
 		try {
-			User user = userService.getById(id);
+			User user = userService.getUserByEmail(email);
 			response = user.toString();
 		} catch (ServiceException e) {
-			response = "Error getting of user";
+			response = "Error getting of user by email";
 			logger.error("Error of executing command", e);
 		}
 
