@@ -11,6 +11,7 @@
 		<property name="userService" ref="userService" />
 		<property name="auditoriumService" ref="auditoriumService" />
 		<property name="eventService" ref="eventService" />
+		<property name="discountService" ref="discountService" />
 	</bean>
 
 
@@ -18,6 +19,11 @@
 		class="com.epam.theater.service.impl.UserServiceImpl"
 		autowire="byName">
 		<property name="userDao" ref="userDao" />
+	</bean>
+
+	<bean id="discountService"
+		class="com.epam.theater.service.impl.DiscountServiceImpl"
+		autowire="byName">
 	</bean>
 
 	<bean id="eventService"
@@ -55,6 +61,7 @@
 				<ref bean="auditorium3" />
 				<ref bean="auditorium4" />
 				<ref bean="auditorium5" />
+				<ref bean="testAuditorium" />
 			</list>
 		</property>
 
@@ -221,6 +228,20 @@
 				<value>7</value>
 				<value>8</value>
 				<value>9</value>
+			</set>
+		</property>
+	</bean>
+
+	<bean id="testAuditorium" class="com.epam.theater.bean.Auditorium">
+		<property name="name" value="testAuditorium" />
+		<property name="numberOfSeats" value="20" />
+		<property name="vipSeats">
+			<set>
+				<value>1</value>
+				<value>2</value>
+				<value>3</value>
+				<value>4</value>
+				<value>5</value>
 			</set>
 		</property>
 	</bean>

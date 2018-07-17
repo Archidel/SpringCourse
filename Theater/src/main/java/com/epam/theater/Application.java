@@ -211,6 +211,16 @@ public class Application {
 			logger.error("Error of booking", e);
 		}
 
+		// getDiscount
+		try {
+			Event event = eventService.getByName("Event #2");
+			user = userService.getUserByEmail("Albert_Zarankovich@epam.com");
+			byte disc = discountService.getDiscount(user, event, LocalDateTime.of(2018, Month.JULY, 18, 00, 00), 10);
+			printResponse("Discount = " + disc);
+		} catch (ServiceException e) {
+			logger.error("Error get discount", e);
+		}
+
 	}
 
 	private static void printResponse(String response) {
