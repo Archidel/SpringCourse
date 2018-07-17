@@ -2,7 +2,6 @@ package com.epam.theater.bean;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
@@ -57,28 +56,41 @@ public class Auditorium {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + (int) (numberOfSeats ^ (numberOfSeats >>> 32));
+		result = prime * result + ((vipSeats == null) ? 0 : vipSeats.hashCode());
+		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (obj == null) {
+		if (obj == null)
 			return false;
-		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
 		Auditorium other = (Auditorium) obj;
 		if (name == null) {
-			if (other.name != null) {
+			if (other.name != null)
 				return false;
-			}
-		} else if (!name.equals(other.name)) {
+		} else if (!name.equals(other.name))
 			return false;
-		}
+		if (numberOfSeats != other.numberOfSeats)
+			return false;
+		if (vipSeats == null) {
+			if (other.vipSeats != null)
+				return false;
+		} else if (!vipSeats.equals(other.vipSeats))
+			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Auditorium [name=" + name + ", numberOfSeats=" + numberOfSeats + ", vipSeats=" + vipSeats + "]";
+	}
+
 }

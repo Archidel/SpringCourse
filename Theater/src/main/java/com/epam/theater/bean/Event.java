@@ -19,6 +19,18 @@ public class Event extends DomainObject {
 
 	private NavigableMap<LocalDateTime, Auditorium> auditoriums = new TreeMap<LocalDateTime, Auditorium>();
 
+	public Event() {
+	}
+
+	public Event(String name, NavigableSet<LocalDateTime> airDates, double basePrice, EventRating rating,
+			NavigableMap<LocalDateTime, Auditorium> auditoriums) {
+		this.name = name;
+		this.airDates = airDates;
+		this.basePrice = basePrice;
+		this.rating = rating;
+		this.auditoriums = auditoriums;
+	}
+
 	public boolean assignAuditorium(LocalDateTime dateTime, Auditorium auditorium) {
 		if (airDates.contains(dateTime)) {
 			auditoriums.put(dateTime, auditorium);
@@ -131,4 +143,11 @@ public class Event extends DomainObject {
 		}
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Event [name=" + name + ", airDates=" + airDates + ", basePrice=" + basePrice + ", rating=" + rating
+				+ ", auditoriums=" + auditoriums + "]";
+	}
+
 }

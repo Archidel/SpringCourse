@@ -2,6 +2,8 @@ package com.epam.theater.dao.impl;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.Set;
+
 import com.epam.theater.bean.DataBase;
 import com.epam.theater.bean.Event;
 import com.epam.theater.dao.EventDao;
@@ -41,6 +43,34 @@ public class EventDaoImpl implements EventDao {
 
 	public void setDataBase(DataBase dataBase) {
 		this.dataBase = dataBase;
+	}
+
+	@Override
+	public Long getFreeId() {
+		Set<Event> events = dataBase.getEvents();
+		Long eventSize = (long) events.size();
+		Long freeId;
+
+		while (true) {
+			if (idIsFree(events, eventSize)) {
+				freeId = eventSize;
+				break;
+			} else {
+				idIsFree(events, eventSize++);
+			}
+		}
+
+		return freeId;
+	}
+
+	private boolean idIsFree(Set<Event> events, Long id) {
+		boolean isFree = true;
+		for (Event event : events) {
+			if (event.getId() == id) {
+				isFree = false;
+			}
+		}
+		return isFree;
 	}
 
 }

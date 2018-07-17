@@ -2,7 +2,6 @@ package com.epam.theater.service;
 
 import java.util.Collection;
 import com.epam.theater.bean.DomainObject;
-import com.epam.theater.bean.User;
 import com.epam.theater.service.exception.ServiceException;
 
 public interface AbstractDomainObjectService<T extends DomainObject> {

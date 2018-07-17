@@ -6,98 +6,223 @@
 	 					http://www.springframework.org/schema/util 
 	 					http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
-	<bean id="userService" class="com.epam.theater.service.impl.UserServiceImpl" autowire="byName">
+	<bean id="application" class="com.epam.theater.Application"
+		autowire="byName">
+		<property name="userService" ref="userService" />
+		<property name="auditoriumService" ref="auditoriumService" />
+		<property name="eventService" ref="eventService" />
+	</bean>
+
+
+	<bean id="userService"
+		class="com.epam.theater.service.impl.UserServiceImpl"
+		autowire="byName">
 		<property name="userDao" ref="userDao" />
 	</bean>
 
-	<bean id="eventService" class="com.epam.theater.service.impl.EventServiceImpl" autowire="byName">
+	<bean id="eventService"
+		class="com.epam.theater.service.impl.EventServiceImpl"
+		autowire="byName">
 		<property name="eventDao" ref="eventDao" />
 	</bean>
 
-	<bean id="auditoriumService" class="com.epam.theater.service.impl.AuditoriumServiceImpl" autowire="byName">
+	<bean id="auditoriumService"
+		class="com.epam.theater.service.impl.AuditoriumServiceImpl"
+		autowire="byName">
 		<property name="auditoriumDao" ref="auditoriumDao" />
 	</bean>
 
+	<bean id="bookingService"
+		class="com.epam.theater.service.impl.BookingServiceImpl"
+		autowire="byName">
+		<property name="userDao" ref="userDao" />
+	</bean>
 
 	<bean id="dataBase" class="com.epam.theater.bean.DataBase">
 
 		<property name="users">
 			<list>
-				<ref bean="user1"/>
-				<ref bean="user2"/>
-				<ref bean="user3"/>
+				<ref bean="user1" />
+				<ref bean="user2" />
+				<ref bean="user3" />
 			</list>
+		</property>
+
+		<property name="auditoriums">
+			<list>
+				<ref bean="auditorium1" />
+				<ref bean="auditorium2" />
+				<ref bean="auditorium3" />
+				<ref bean="auditorium4" />
+				<ref bean="auditorium5" />
+			</list>
+		</property>
+
+		<property name="events">
+			<list />
 		</property>
 
 	</bean>
 
-	<bean id="userDao" class="com.epam.theater.dao.impl.UserDaoImpl" autowire="byName">
+	<bean id="userDao" class="com.epam.theater.dao.impl.UserDaoImpl"
+		autowire="byName">
 		<property name="dataBase" ref="dataBase" />
 	</bean>
 
-	<bean id="auditoriumDao" class="com.epam.theater.dao.impl.AuditoriumDaoImpl" autowire="byName">
+	<bean id="auditoriumDao"
+		class="com.epam.theater.dao.impl.AuditoriumDaoImpl" autowire="byName">
 		<property name="dataBase" ref="dataBase" />
 	</bean>
 
-	<bean id="eventDao" class="com.epam.theater.dao.impl.EventDaoImpl" autowire="byName">
+	<bean id="eventDao" class="com.epam.theater.dao.impl.EventDaoImpl"
+		autowire="byName">
 		<property name="dataBase" ref="dataBase" />
 	</bean>
 
 	<bean id="user1" class="com.epam.theater.bean.User">
 		<constructor-arg index="0" value="0" />
 		<constructor-arg index="1" value="Albert" />
-		<constructor-arg index="2" value="Zarankovich"  />
-		<constructor-arg index="3" value="Albert_Zarankovich@epam.com" />
+		<constructor-arg index="2" value="Zarankovich" />
+		<constructor-arg index="3"
+			value="Albert_Zarankovich@epam.com" />
 	</bean>
 
 	<bean id="user2" class="com.epam.theater.bean.User">
 		<constructor-arg index="0" value="1" />
 		<constructor-arg index="1" value="Peter" />
 		<constructor-arg index="2" value="Burko" />
-		<constructor-arg index="3" value="Peter_Burko@epam.com" />
+		<constructor-arg index="3"
+			value="Peter_Burko@epam.com" />
 	</bean>
 
 	<bean id="user3" class="com.epam.theater.bean.User">
 		<constructor-arg index="0" value="2" />
 		<constructor-arg index="1" value="Nikita" />
 		<constructor-arg index="2" value="Mihalchuk" />
-		<constructor-arg index="3" value="Nikita_Mihalchuk@epam.com" />
+		<constructor-arg index="3"
+			value="Nikita_Mihalchuk@epam.com" />
 	</bean>
 
 	<bean id="user4" class="com.epam.theater.bean.User">
 		<constructor-arg index="0" value="3" />
 		<constructor-arg index="1" value="Andrey" />
 		<constructor-arg index="2" value="Meleh" />
-		<constructor-arg index="3" value="Andrey_Meleh@epam.com" />
+		<constructor-arg index="3"
+			value="Andrey_Meleh@epam.com" />
 	</bean>
-	
+
 	<bean id="user5" class="com.epam.theater.bean.User">
 		<constructor-arg index="0" value="4" />
 		<constructor-arg index="1" value="Alex" />
 		<constructor-arg index="2" value="Zaycev" />
-		<constructor-arg index="3" value="Alex_Zaycev@epam.com" />
+		<constructor-arg index="3"
+			value="Alex_Zaycev@epam.com" />
 	</bean>
 
-<!-- 
+
 	<bean id="auditorium1" class="com.epam.theater.bean.Auditorium">
-		<constructor-arg index="0" value="Auditorium1" />
-		<constructor-arg index="1" value="100"  />
-		<constructor-arg index="2" ref="vipSeatsSet" />
+		<property name="name" value="auditorium_1" />
+		<property name="numberOfSeats" value="100" />
+		<property name="vipSeats">
+			<set>
+				<value>1</value>
+				<value>2</value>
+				<value>3</value>
+				<value>4</value>
+				<value>5</value>
+				<value>6</value>
+				<value>7</value>
+				<value>8</value>
+				<value>9</value>
+				<value>10</value>
+			</set>
+		</property>
 	</bean>
- -->
-	<!-- <property name="vipSeatsSet">
-		<set>
-			<value>1</value>
-			<value>2</value>
-			<value>3</value>
-			<value>4</value>
-			<value>5</value>
-			<value>6</value>
-			<value>7</value>
-			<value>8</value>
-			<value>9</value>
-			<value>10</value>
-		</set>
-	</property> -->
+
+	<bean id="auditorium2" class="com.epam.theater.bean.Auditorium">
+		<property name="name" value="auditorium_2" />
+		<property name="numberOfSeats" value="200" />
+		<property name="vipSeats">
+			<set>
+				<value>1</value>
+				<value>2</value>
+				<value>3</value>
+				<value>4</value>
+				<value>5</value>
+				<value>6</value>
+				<value>7</value>
+				<value>8</value>
+				<value>9</value>
+				<value>10</value>
+				<value>11</value>
+				<value>12</value>
+				<value>13</value>
+				<value>14</value>
+				<value>15</value>
+				<value>16</value>
+				<value>17</value>
+				<value>18</value>
+				<value>19</value>
+				<value>20</value>
+			</set>
+		</property>
+	</bean>
+
+	<bean id="auditorium3" class="com.epam.theater.bean.Auditorium">
+		<property name="name" value="auditorium_3" />
+		<property name="numberOfSeats" value="130" />
+		<property name="vipSeats">
+			<set>
+				<value>1</value>
+				<value>2</value>
+				<value>3</value>
+				<value>4</value>
+				<value>5</value>
+				<value>6</value>
+				<value>7</value>
+				<value>8</value>
+				<value>9</value>
+				<value>10</value>
+				<value>11</value>
+				<value>12</value>
+				<value>13</value>
+				<value>14</value>
+				<value>15</value>
+			</set>
+		</property>
+	</bean>
+
+	<bean id="auditorium4" class="com.epam.theater.bean.Auditorium">
+		<property name="name" value="auditorium_4" />
+		<property name="numberOfSeats" value="50" />
+		<property name="vipSeats">
+			<set>
+				<value>1</value>
+				<value>2</value>
+				<value>3</value>
+				<value>4</value>
+				<value>5</value>
+				<value>6</value>
+			</set>
+		</property>
+	</bean>
+
+	<bean id="auditorium5" class="com.epam.theater.bean.Auditorium">
+		<property name="name" value="auditorium_5" />
+		<property name="numberOfSeats" value="80" />
+		<property name="vipSeats">
+			<set>
+				<value>1</value>
+				<value>2</value>
+				<value>3</value>
+				<value>4</value>
+				<value>5</value>
+				<value>6</value>
+				<value>7</value>
+				<value>8</value>
+				<value>9</value>
+			</set>
+		</property>
+	</bean>
 
 </beans>

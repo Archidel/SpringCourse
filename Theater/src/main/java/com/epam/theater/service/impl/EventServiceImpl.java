@@ -40,8 +40,7 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public void remove(Long id) throws ServiceException {
-		Event event = eventDao.getById(id);
+	public void remove(Event event) throws ServiceException {
 		if (event == null) {
 			throw new ServiceException("Event not found");
 		}
@@ -63,6 +62,7 @@ public class EventServiceImpl implements EventService {
 
 	@Override
 	public void save(Event event) {
+		event.setId(eventDao.getFreeId());
 		eventDao.save(event);
 	}
 

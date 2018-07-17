@@ -6,12 +6,13 @@ import java.util.Set;
 import com.epam.theater.bean.Event;
 import com.epam.theater.bean.Ticket;
 import com.epam.theater.bean.User;
+import com.epam.theater.service.exception.ServiceException;
 
 public interface BookingService {
-	public double getTicketsPrice(Event event, LocalDateTime dateTime, User user, Set<Long> seats);
+	public double getTicketsPrice(Event event, LocalDateTime dateTime, User user, Set<Long> seats) throws ServiceException;
 
 	public void bookTickets(Set<Ticket> tickets);
 
-	public Set<Ticket> getPurchasedTicketsForEvent(Event event, LocalDateTime dateTime);
+	public Set<Ticket> getPurchasedTicketsForEvent(Event event, LocalDateTime dateTime) throws ServiceException;
 
 }
