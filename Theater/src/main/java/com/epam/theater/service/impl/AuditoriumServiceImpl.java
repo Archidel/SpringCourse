@@ -2,13 +2,18 @@ package com.epam.theater.service.impl;
 
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.epam.theater.bean.Auditorium;
 import com.epam.theater.dao.AuditoriumDao;
 import com.epam.theater.service.AuditoriumService;
 import com.epam.theater.service.exception.ServiceException;
 
+@Service
 public class AuditoriumServiceImpl implements AuditoriumService {
 
+	@Autowired
 	private AuditoriumDao auditoriumDao;
 
 	@Override
@@ -31,10 +36,6 @@ public class AuditoriumServiceImpl implements AuditoriumService {
 		}
 
 		return auditorium;
-	}
-
-	public void setAuditoriumDao(AuditoriumDao auditoriumDao) {
-		this.auditoriumDao = auditoriumDao;
 	}
 
 }

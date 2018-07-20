@@ -1,4 +1,4 @@
-package com.epam.theater;
+package com.epam.theater.configuration;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -9,9 +9,8 @@ import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import com.epam.theater.bean.Auditorium;
 import com.epam.theater.bean.Event;
 import com.epam.theater.bean.EventRating;
@@ -26,17 +25,18 @@ import com.epam.theater.service.exception.ServiceException;
 
 public class Application {
 	private static final Logger logger = LoggerFactory.getLogger(Application.class);
+	@Autowired
 	private static UserService userService;
 	private static AuditoriumService auditoriumService;
 	private static BookingService bookingService;
 	private static DiscountService discountService;
 	private static EventService eventService;
 
-	@SuppressWarnings({ "unused", "resource" })
+	@SuppressWarnings("resource")
 	public static void main(String[] args) throws InterruptedException {
-		ApplicationContext context = new ClassPathXmlApplicationContext("appContext.xml");
-		User user = null;
+		new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
 
+		User user = null;
 		// ###############################
 		// ###### User functionality #####
 		// ###############################
@@ -229,22 +229,27 @@ public class Application {
 		}
 	}
 
+	@Autowired
 	public static void setUserService(UserService userService) {
 		Application.userService = userService;
 	}
 
+	@Autowired
 	public static void setAuditoriumService(AuditoriumService auditoriumService) {
 		Application.auditoriumService = auditoriumService;
 	}
 
+	@Autowired
 	public static void setBookingService(BookingService bookingService) {
 		Application.bookingService = bookingService;
 	}
 
+	@Autowired
 	public static void setDiscountService(DiscountService discountService) {
 		Application.discountService = discountService;
 	}
 
+	@Autowired
 	public static void setEventService(EventService eventService) {
 		Application.eventService = eventService;
 	}

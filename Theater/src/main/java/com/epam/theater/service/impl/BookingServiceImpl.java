@@ -8,6 +8,9 @@ import java.util.NavigableSet;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.epam.theater.bean.Auditorium;
 import com.epam.theater.bean.Event;
 import com.epam.theater.bean.EventRating;
@@ -17,8 +20,10 @@ import com.epam.theater.dao.UserDao;
 import com.epam.theater.service.BookingService;
 import com.epam.theater.service.exception.ServiceException;
 
+@Service
 public class BookingServiceImpl implements BookingService {
 
+	@Autowired
 	private UserDao userDao;
 
 	@Override
@@ -90,10 +95,6 @@ public class BookingServiceImpl implements BookingService {
 		}
 
 		return ticketList;
-	}
-
-	public void setUserDao(UserDao userDao) {
-		this.userDao = userDao;
 	}
 
 }

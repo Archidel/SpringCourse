@@ -3,10 +3,13 @@ package com.epam.theater.dao.impl;
 import java.util.Optional;
 import java.util.Set;
 
+import org.springframework.stereotype.Repository;
+
 import com.epam.theater.bean.Auditorium;
 import com.epam.theater.bean.DataBase;
 import com.epam.theater.dao.AuditoriumDao;
 
+@Repository
 public class AuditoriumDaoImpl implements AuditoriumDao {
 
 	private DataBase dataBase;

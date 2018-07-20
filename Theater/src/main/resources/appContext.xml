@@ -6,7 +6,7 @@
 	 					http://www.springframework.org/schema/util 
 	 					http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
-	<bean id="application" class="com.epam.theater.Application"
+	<bean id="application" class="com.epam.theater.configuration.Application"
 		autowire="byName">
 		<property name="userService" ref="userService" />
 		<property name="auditoriumService" ref="auditoriumService" />

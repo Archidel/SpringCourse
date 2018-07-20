@@ -1,18 +1,20 @@
 package com.epam.theater.service.impl;
 
 import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.epam.theater.bean.User;
 import com.epam.theater.dao.UserDao;
 import com.epam.theater.service.UserService;
 import com.epam.theater.service.exception.ServiceException;
 
+@Service
 public class UserServiceImpl implements UserService {
 
+	@Autowired
 	private UserDao userDao;
-
-	public void setUserDao(UserDao userDao) {
-		this.userDao = userDao;
-	}
 
 	@Override
 	public Collection<User> getAll() throws ServiceException {

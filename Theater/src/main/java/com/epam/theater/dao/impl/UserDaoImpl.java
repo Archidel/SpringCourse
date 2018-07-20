@@ -4,10 +4,13 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
 
+import org.springframework.stereotype.Repository;
+
 import com.epam.theater.bean.DataBase;
 import com.epam.theater.bean.User;
 import com.epam.theater.dao.UserDao;
 
+@Repository
 public class UserDaoImpl implements UserDao {
 
 	private DataBase dataBase;

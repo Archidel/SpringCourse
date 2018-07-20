@@ -1,13 +1,19 @@
 package com.epam.theater.service.impl;
 
 import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.epam.theater.bean.Event;
 import com.epam.theater.dao.EventDao;
 import com.epam.theater.service.EventService;
 import com.epam.theater.service.exception.ServiceException;
 
+@Service
 public class EventServiceImpl implements EventService {
 
+	@Autowired
 	private EventDao eventDao;
 
 	@Override
@@ -33,10 +39,6 @@ public class EventServiceImpl implements EventService {
 		}
 
 		return event;
-	}
-
-	public void setEventDao(EventDao eventDao) {
-		this.eventDao = eventDao;
 	}
 
 	@Override

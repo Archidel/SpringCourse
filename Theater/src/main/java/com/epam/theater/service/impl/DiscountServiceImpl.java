@@ -3,10 +3,14 @@ package com.epam.theater.service.impl;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.NavigableSet;
+
+import org.springframework.stereotype.Service;
+
 import com.epam.theater.bean.Event;
 import com.epam.theater.bean.User;
 import com.epam.theater.service.DiscountService;
 
+@Service
 public class DiscountServiceImpl implements DiscountService {
 
 	@Override
