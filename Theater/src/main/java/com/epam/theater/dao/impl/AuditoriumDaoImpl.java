@@ -3,6 +3,7 @@ package com.epam.theater.dao.impl;
 import java.util.Optional;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.epam.theater.bean.Auditorium;
@@ -12,6 +13,7 @@ import com.epam.theater.dao.AuditoriumDao;
 @Repository
 public class AuditoriumDaoImpl implements AuditoriumDao {
 
+	@Autowired
 	private DataBase dataBase;
 
 	@Override

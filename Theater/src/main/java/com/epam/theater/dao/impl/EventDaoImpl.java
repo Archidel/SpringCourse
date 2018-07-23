@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.epam.theater.bean.DataBase;
@@ -14,6 +15,7 @@ import com.epam.theater.service.exception.ServiceException;
 @Repository
 public class EventDaoImpl implements EventDao {
 
+	@Autowired
 	private DataBase dataBase;
 
 	@Override

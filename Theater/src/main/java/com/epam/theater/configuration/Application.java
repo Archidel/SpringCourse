@@ -9,7 +9,6 @@ import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import com.epam.theater.bean.Auditorium;
 import com.epam.theater.bean.Event;
@@ -25,16 +24,15 @@ import com.epam.theater.service.exception.ServiceException;
 
 public class Application {
 	private static final Logger logger = LoggerFactory.getLogger(Application.class);
-	@Autowired
-	private static UserService userService;
-	private static AuditoriumService auditoriumService;
-	private static BookingService bookingService;
-	private static DiscountService discountService;
-	private static EventService eventService;
-
+	
 	@SuppressWarnings("resource")
 	public static void main(String[] args) throws InterruptedException {
-		new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
+		UserService userService = (UserService) context.getBean("userServiceImpl");
+		AuditoriumService auditoriumService = (AuditoriumService) context.getBean("auditoriumServiceImpl");
+		BookingService bookingService = (BookingService) context.getBean("bookingServiceImpl");
+		DiscountService discountService = (DiscountService) context.getBean("discountServiceImpl");
+		EventService eventService = (EventService) context.getBean("eventServiceImpl");
 
 		User user = null;
 		// ###############################
@@ -228,30 +226,5 @@ public class Application {
 			System.out.println(response);
 		}
 	}
-
-	@Autowired
-	public static void setUserService(UserService userService) {
-		Application.userService = userService;
-	}
-
-	@Autowired
-	public static void setAuditoriumService(AuditoriumService auditoriumService) {
-		Application.auditoriumService = auditoriumService;
-	}
-
-	@Autowired
-	public static void setBookingService(BookingService bookingService) {
-		Application.bookingService = bookingService;
-	}
-
-	@Autowired
-	public static void setDiscountService(DiscountService discountService) {
-		Application.discountService = discountService;
-	}
-
-	@Autowired
-	public static void setEventService(EventService eventService) {
-		Application.eventService = eventService;
-	}
-
 }
+
