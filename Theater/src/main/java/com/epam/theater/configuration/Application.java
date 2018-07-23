@@ -33,12 +33,13 @@ public class Application {
 		BookingService bookingService = (BookingService) context.getBean("bookingServiceImpl");
 		DiscountService discountService = (DiscountService) context.getBean("discountServiceImpl");
 		EventService eventService = (EventService) context.getBean("eventServiceImpl");
-
+		
+		
+// ###############################
+// ###### User functionality #####
+// ###############################
 		User user = null;
-		// ###############################
-		// ###### User functionality #####
-		// ###############################
-
+		
 		// Save user
 		userService.save(new User(4L, "Albert", "Zarankovich", "Albert_Zarankovich@epam.com"));
 		printResponse("User has been saved");
@@ -76,9 +77,9 @@ public class Application {
 			logger.error("Error of removing user: " + user.toString(), e);
 		}
 
-		// ###############################
-		// ### Auditorium functionality ##
-		// ###############################
+// ###############################
+// ### Auditorium functionality ##
+// ###############################
 
 		// Auditorium getAll
 		try {
@@ -95,9 +96,9 @@ public class Application {
 		} catch (ServiceException e) {
 			logger.error("Error of getting auditorium", e);
 		}
-		// ###############################
-		// ##### Event functionality #####
-		// ###############################
+// ###############################
+// ##### Event functionality #####
+// ###############################
 
 		// Event save
 		LocalDateTime ldt1 = LocalDateTime.of(2018, Month.AUGUST, 8, 18, 00);
@@ -171,9 +172,9 @@ public class Application {
 			logger.error("Error of removing event", e);
 		}
 
-		// ###############################
-		// ### Booking functionality ##
-		// ###############################
+// ###############################
+// ### Booking functionality ##
+// ###############################
 
 		// getPrice
 		try {
@@ -195,7 +196,7 @@ public class Application {
 			tickets.add(new Ticket(user, event, ldt3, 66L));
 
 			bookingService.bookTickets(tickets);
-			printResponse("Tickets has been booked");
+			printResponse("Tickets has been booked by " + user.getEmail());
 		} catch (ServiceException e) {
 			logger.error("Error of booking", e);
 		}
@@ -218,7 +219,7 @@ public class Application {
 		} catch (ServiceException e) {
 			logger.error("Error get discount", e);
 		}
-
+		
 	}
 
 	private static void printResponse(String response) {

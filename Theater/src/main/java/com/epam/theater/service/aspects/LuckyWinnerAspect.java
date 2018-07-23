@@ -1,4 +1,4 @@
-package com.epam.theater.configuration.aspect;
+package com.epam.theater.service.aspects;
 
 import org.aspectj.lang.annotation.Aspect;
 
