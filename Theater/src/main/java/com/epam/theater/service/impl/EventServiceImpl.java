@@ -17,10 +17,35 @@ public class EventServiceImpl implements EventService {
 	private EventDao eventDao;
 
 	@Override
+	public void remove(String id) throws ServiceException {
+		if (EventService.checkString(id)) {
+			throw new ServiceException("Invalid event id");
+		}
+
+		eventDao.remove(Long.parseLong(id));
+	}
+
+	@Override
+	public Event getById(String id) throws ServiceException {
+		if (EventService.checkString(id)) {
+			throw new ServiceException("Invalid event id");
+		}
+
+		Event event = eventDao.getById(Long.parseLong(id));
+
+		if (event == null) {
+			throw new ServiceException("Event not found by id");
+		}
+
+		return event;
+	}
+
+	@Override
 	public Collection<Event> getAll() throws ServiceException {
 		Collection<Event> events = eventDao.getAll();
+
 		if (events == null) {
-			throw new ServiceException("Events not found");
+			throw new ServiceException("Collection of event not flound");
 		}
 
 		return events;
@@ -28,44 +53,17 @@ public class EventServiceImpl implements EventService {
 
 	@Override
 	public Event getByName(String name) throws ServiceException {
-		if (!EventService.valid(name)) {
-			throw new ServiceException("Event's name is not valid!");
+		if (EventService.checkString(name)) {
+			throw new ServiceException("Invalid event name");
 		}
 
 		Event event = eventDao.getByName(name);
 
 		if (event == null) {
-			throw new ServiceException("Event not found");
+			throw new ServiceException("Event not found by name");
 		}
 
 		return event;
-	}
-
-	@Override
-	public void remove(Event event) throws ServiceException {
-		if (event == null) {
-			throw new ServiceException("Event not found");
-		}
-
-		eventDao.remove(event);
-
-	}
-
-	@Override
-	public Event getById(Long id) throws ServiceException {
-		Event event = eventDao.getById(id);
-
-		if (event == null) {
-			throw new ServiceException("Event not found");
-		}
-
-		return event;
-	}
-
-	@Override
-	public void save(Event event) {
-		event.setId(eventDao.getFreeId());
-		eventDao.save(event);
 	}
 
 }

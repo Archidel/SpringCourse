@@ -5,10 +5,10 @@ import com.epam.theater.service.exception.ServiceException;
 
 public interface EventService extends AbstractDomainObjectService<Event> {
 
-	static boolean valid(String line) {
-		return (line != null && !line.isEmpty());
+	static boolean checkString(String input) {
+		return (input == null || input.isEmpty());
 	}
 
-	public Event getByName(String name) throws ServiceException;
+	Event getByName(String name) throws ServiceException;
 
 }

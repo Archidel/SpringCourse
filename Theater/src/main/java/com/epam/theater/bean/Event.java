@@ -10,13 +10,9 @@ import java.util.TreeSet;
 
 public class Event extends DomainObject {
 	private String name;
-
 	private NavigableSet<LocalDateTime> airDates = new TreeSet<LocalDateTime>();
-
 	private double basePrice;
-
 	private EventRating rating;
-
 	private NavigableMap<LocalDateTime, Auditorium> auditoriums = new TreeMap<LocalDateTime, Auditorium>();
 
 	public Event() {

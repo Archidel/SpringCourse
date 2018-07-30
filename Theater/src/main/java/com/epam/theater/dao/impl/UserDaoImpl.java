@@ -1,13 +1,12 @@
 package com.epam.theater.dao.impl;
 
 import java.util.Collection;
-import java.util.Optional;
-import java.util.Set;
-
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.epam.theater.bean.DataBase;
 import com.epam.theater.bean.User;
 import com.epam.theater.dao.UserDao;
 
@@ -15,65 +14,37 @@ import com.epam.theater.dao.UserDao;
 public class UserDaoImpl implements UserDao {
 
 	@Autowired
-	private DataBase dataBase;
+	private JdbcTemplate jdbcTemplate;
 
 	@Override
 	public void save(User user) {
-		dataBase.getUsers().add(user);
+		jdbcTemplate.update("INSERT INTO user (u_id, u_firstname, u_lastname) VALUES (?, ?, ?)", user.getFirstName(),user.getLastName(), user.getEmail());
 	}
 
 	@Override
-	public void remove(User user) {
-		dataBase.getUsers().remove(user);
+	public void remove(Long id) {
+		jdbcTemplate.update("DELETE from user WHERE u_id = ? ", id);
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public User getById(Long id) {
-		Optional<User> optinalUsers = dataBase.getUsers().stream().filter(p -> p.getId().equals(id)).findFirst();
-		return optinalUsers.orElse(null);
+		User user = (User) jdbcTemplate.queryForObject("SELECT * FROM user where u_id = ? ", new Object[] { id }, new BeanPropertyRowMapper(User.class));
+		return user;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Collection<User> getAll() {
-		return dataBase.getUsers();
+		List<User> persons = jdbcTemplate.query("SELECT * FROM user", new BeanPropertyRowMapper(User.class));
+		return persons;
 	}
 
-	public void setDataBase(DataBase dataBase) {
-		this.dataBase = dataBase;
-	}
-
-	@Override
-	public Long getFreeId() {
-		Set<User> users = dataBase.getUsers();
-		Long userSize = (long) users.size();
-		Long freeId;
-
-		while (true) {
-			if (idIsFree(users, userSize)) {
-				freeId = userSize;
-				break;
-			} else {
-				idIsFree(users, userSize++);
-			}
-		}
-
-		return freeId;
-	}
-
-	private boolean idIsFree(Set<User> users, Long id) {
-		boolean isFree = true;
-		for (User user : users) {
-			if (user.getId() == id) {
-				isFree = false;
-			}
-		}
-		return isFree;
-	}
-
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public User getUserByEmail(String email) {
-		Optional<User> optinalUsers = dataBase.getUsers().stream().filter(p -> p.getEmail().equalsIgnoreCase(email)).findFirst();
-		return optinalUsers.orElse(null);
+		User user = (User) jdbcTemplate.queryForObject("SELECT * FROM user where u_email = ? ", new Object[] { email }, new BeanPropertyRowMapper(User.class));
+		return user;
 	}
 
 }

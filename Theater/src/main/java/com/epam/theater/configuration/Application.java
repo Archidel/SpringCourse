@@ -1,107 +1,131 @@
 package com.epam.theater.configuration;
 
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import com.epam.theater.bean.Auditorium;
-import com.epam.theater.bean.Event;
-import com.epam.theater.bean.EventRating;
-import com.epam.theater.bean.Ticket;
-import com.epam.theater.bean.User;
-import com.epam.theater.service.AuditoriumService;
-import com.epam.theater.service.BookingService;
-import com.epam.theater.service.DiscountService;
-import com.epam.theater.service.EventService;
-import com.epam.theater.service.UserService;
-import com.epam.theater.service.exception.ServiceException;
+
+import com.epam.theater.controller.Controller;
+import com.epam.theater.controller.command.Command;
+import static com.epam.theater.controller.Constants.PARAM_NAME_USER_NAME;
+import static com.epam.theater.controller.Constants.PARAM_NAME_USER_SURNAME;
+import static com.epam.theater.controller.Constants.PARAM_NAME_USER_EMAIL;
+import static com.epam.theater.controller.Constants.PARAM_NAME_USER_ID;
+import static com.epam.theater.controller.Constants.PARAM_NAME_AUDITORIUM_NAME;
+import static com.epam.theater.controller.Constants.PARAM_NAME_EVENT_NAME;
+import static com.epam.theater.controller.Constants.PARAM_NAME_EVENT_ID;
 
 public class Application {
-	private static final Logger logger = LoggerFactory.getLogger(Application.class);
-	
-	@SuppressWarnings("resource")
+
 	public static void main(String[] args) throws InterruptedException {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
-		UserService userService = (UserService) context.getBean("userServiceImpl");
-		AuditoriumService auditoriumService = (AuditoriumService) context.getBean("auditoriumServiceImpl");
-		BookingService bookingService = (BookingService) context.getBean("bookingServiceImpl");
-		DiscountService discountService = (DiscountService) context.getBean("discountServiceImpl");
-		EventService eventService = (EventService) context.getBean("eventServiceImpl");
+		ContextProvider.setApplicationContext(context);
+
+		Command command = null;
+		String response = null;
+		Map<String, String> requestParam = new HashMap<String, String>();
+
 		
-		
-// ###############################
-// ###### User functionality #####
-// ###############################
-		User user = null;
-		
+		// ###############################
+		// ###### User functionality #####
+		// ###############################
+
 		// Save user
-		userService.save(new User(4L, "Albert", "Zarankovich", "Albert_Zarankovich@epam.com"));
-		printResponse("User has been saved");
+		requestParam.put(PARAM_NAME_USER_NAME, "Albert");
+		requestParam.put(PARAM_NAME_USER_SURNAME, "Zarankovich");
+		requestParam.put(PARAM_NAME_USER_EMAIL, "Albert_Zarankovich@epam.com");
+		
+		command = Controller.getCommand("save_user");
+		response = command.execute(requestParam);
+		printResponse(response);
 
-		// GetAll users
-		try {
-			Collection<User> users = userService.getAll();
-			printResponse(users.toString());
-		} catch (ServiceException e) {
-			logger.error("Error of getting users", e);
-		}
+		
+		// Get all users
+		command = Controller.getCommand("get_all_users");
+		response = command.execute(null);
+		printResponse(response);
 
+		
 		// GetUserByEmail
-		try {
-			user = userService.getUserByEmail("Albert_Zarankovich@epam.com");
-			printResponse(user.toString());
-		} catch (ServiceException e) {
-			logger.error("Error of getting user: " + user, e);
-		}
+		requestParam.put(PARAM_NAME_USER_EMAIL, "Albert_Zarankovich@epam.com");
+		
+		command = Controller.getCommand("get_user_by_email");
+		response = command.execute(requestParam);
+		printResponse(response);
 
 		// get user by ID
-		try {
-			user = userService.getById(2L);
-			printResponse(user.toString());
-		} catch (ServiceException e) {
-			logger.error("Error of getting user by id", e);
-		}
+		requestParam.put(PARAM_NAME_USER_ID, "1");
+		
+		command = Controller.getCommand("get_user_by_id");
+		response = command.execute(requestParam);
+		printResponse(response);		
+		
 
 		// Remove user
-		try {
-			user = userService.getById(2L);
-			userService.remove(user);
-			printResponse("User has been removed");
-		} catch (ServiceException e) {
-			logger.error("Error of removing user: " + user.toString(), e);
-		}
+		requestParam.put(PARAM_NAME_USER_ID, "1");
+		
+		command = Controller.getCommand("remove_user");
+		response = command.execute(requestParam);
+		printResponse(response);	
 
-// ###############################
-// ### Auditorium functionality ##
-// ###############################
-
+		
+		// ###############################
+		// ### Auditorium functionality ##
+		// ###############################		
+		
 		// Auditorium getAll
-		try {
-			Collection<Auditorium> auditoriums = auditoriumService.getAll();
-			printResponse(auditoriums.toString());
-		} catch (ServiceException e) {
-			logger.error("Error of getting auditorium list", e);
-		}
-
+		command = Controller.getCommand("get_all_auditoriums");
+		response = command.execute(requestParam);
+		printResponse(response);
+		
 		// Auditorium getByName
-		try {
-			Auditorium auditorium = auditoriumService.getByName("auditorium_1");
-			printResponse(auditorium.toString());
-		} catch (ServiceException e) {
-			logger.error("Error of getting auditorium", e);
-		}
-// ###############################
-// ##### Event functionality #####
-// ###############################
+		requestParam.put(PARAM_NAME_AUDITORIUM_NAME, "auditorium1");
+		
+		command = Controller.getCommand("get_auditorium_by_name");
+		response = command.execute(requestParam);
+		printResponse(response);
+		
+		
+		// ###############################
+		// ##### Event functionality #####
+		// ###############################
 
 		// Event save
-		LocalDateTime ldt1 = LocalDateTime.of(2018, Month.AUGUST, 8, 18, 00);
+		requestParam.put(PARAM_NAME_AUDITORIUM_NAME, "auditorium1");
+		
+		command = Controller.getCommand("save_event");
+		response = command.execute(requestParam);
+		printResponse(response);
+		
+		
+		// Event get by name
+		requestParam.put(PARAM_NAME_EVENT_NAME, "Event #1");
+		
+		command = Controller.getCommand("get_event_by_name");
+		response = command.execute(requestParam);
+		printResponse(response);
+		
+		
+		// Event remove
+		requestParam.put(PARAM_NAME_EVENT_ID, "1");
+		
+		command = Controller.getCommand("event_remove");
+		response = command.execute(requestParam);
+		printResponse(response);
+		
+		// ###############################
+		// ### Booking functionality ##
+		// ###############################
+		
+		// getPrice
+		// getPurchesTickes
+		// getDiscount
+		
+		
+		
+		
+		
+		
+	/*	LocalDateTime ldt1 = LocalDateTime.of(2018, Month.AUGUST, 8, 18, 00);
 		LocalDateTime ldt2 = LocalDateTime.of(2018, Month.DECEMBER, 9, 12, 15);
 		LocalDateTime ldt3 = LocalDateTime.of(2018, Month.JULY, 18, 11, 45);
 		LocalDateTime ldt4 = LocalDateTime.of(2018, Month.JUNE, 20, 19, 00);
@@ -172,9 +196,9 @@ public class Application {
 			logger.error("Error of removing event", e);
 		}
 
-// ###############################
-// ### Booking functionality ##
-// ###############################
+		// ###############################
+		// ### Booking functionality ##
+		// ###############################
 
 		// getPrice
 		try {
@@ -218,8 +242,8 @@ public class Application {
 			printResponse("Discount = " + disc);
 		} catch (ServiceException e) {
 			logger.error("Error get discount", e);
-		}
-		
+		}*/
+
 	}
 
 	private static void printResponse(String response) {
@@ -228,4 +252,3 @@ public class Application {
 		}
 	}
 }
-

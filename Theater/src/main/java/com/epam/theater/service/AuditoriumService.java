@@ -6,7 +6,11 @@ import com.epam.theater.bean.Auditorium;
 import com.epam.theater.service.exception.ServiceException;
 
 public interface AuditoriumService {
-	public Set<Auditorium> getAll() throws ServiceException;
+	Set<Auditorium> getAll() throws ServiceException;
 
-	public Auditorium getByName(String name) throws ServiceException;
+	Auditorium getByName(String name) throws ServiceException;
+
+	static boolean checkString(String input) {
+		return (input == null || input.isEmpty());
+	}
 }

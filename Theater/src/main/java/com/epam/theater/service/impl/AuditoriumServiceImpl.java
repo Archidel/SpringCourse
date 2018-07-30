@@ -4,7 +4,6 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.epam.theater.bean.Auditorium;
 import com.epam.theater.dao.AuditoriumDao;
 import com.epam.theater.service.AuditoriumService;
@@ -29,6 +28,10 @@ public class AuditoriumServiceImpl implements AuditoriumService {
 
 	@Override
 	public Auditorium getByName(String name) throws ServiceException {
+		if (AuditoriumService.checkString(name)) {
+			throw new ServiceException("Invalid auditorium name");
+		}
+
 		Auditorium auditorium = auditoriumDao.getByName(name);
 
 		if (auditorium == null) {

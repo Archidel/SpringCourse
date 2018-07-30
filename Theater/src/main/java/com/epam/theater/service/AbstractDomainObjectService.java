@@ -5,11 +5,10 @@ import com.epam.theater.bean.DomainObject;
 import com.epam.theater.service.exception.ServiceException;
 
 public interface AbstractDomainObjectService<T extends DomainObject> {
-	public void remove(T object) throws ServiceException;
+	void remove(String id) throws ServiceException;
 
-	public T getById(Long id) throws ServiceException;
+	T getById(String id) throws ServiceException;
 
-	public Collection<T> getAll() throws ServiceException;
+	Collection<T> getAll() throws ServiceException;
 
-	public void save(T object);
 }

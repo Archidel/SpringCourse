@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
 import com.epam.theater.bean.DataBase;
 import com.epam.theater.bean.User;
 
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class DiscountAspect {
 
-	@Autowired
+/*	@Autowired
 	private DataBase dataBase;
 
 	@After("execution(* com.epam.theater.service.DiscountService.getDiscount(..)) && (args(user,..))")
@@ -28,5 +28,5 @@ public class DiscountAspect {
 		disCount++;
 
 		dataBase.getDiscountCounter().put(user, disCount);
-	}
+	}*/
 }

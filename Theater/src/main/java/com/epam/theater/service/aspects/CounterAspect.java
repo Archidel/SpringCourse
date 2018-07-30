@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 import com.epam.theater.bean.DataBase;
 import com.epam.theater.bean.Statistic;
 
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class CounterAspect {
-	@Autowired
+/*	@Autowired
 	private DataBase dataBase;
 
 	@After("execution(* com.epam.theater.service.EventService.getByName(..))")
@@ -35,5 +35,5 @@ public class CounterAspect {
 		statistic.setPriceTimes(statistic.getPriceTimes() + 1);
 //		System.err.println(statistic.toString());
 	}
-
+*/
 }

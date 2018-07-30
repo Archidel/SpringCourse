@@ -8,9 +8,7 @@ import java.util.stream.LongStream;
 
 public class Auditorium {
 	private String name;
-
 	private long numberOfSeats;
-
 	private Set<Long> vipSeats = Collections.emptySet();
 
 	public Auditorium(String name, long numberOfSeats, Set<Long> vipSeats) {
