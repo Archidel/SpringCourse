@@ -1,11 +1,14 @@
 package com.epam.theater.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.epam.theater.bean.Auditorium;
 import com.epam.theater.bean.Event;
+import com.epam.theater.bean.EventRating;
+import com.epam.theater.dao.AuditoriumDao;
 import com.epam.theater.dao.EventDao;
 import com.epam.theater.service.EventService;
 import com.epam.theater.service.exception.ServiceException;
@@ -15,6 +18,9 @@ public class EventServiceImpl implements EventService {
 
 	@Autowired
 	private EventDao eventDao;
+
+	@Autowired
+	private AuditoriumDao auditoriumDao;
 
 	@Override
 	public void remove(String id) throws ServiceException {
@@ -64,6 +70,28 @@ public class EventServiceImpl implements EventService {
 		}
 
 		return event;
+	}
+
+	@Override
+	public void save(String auditName, String eventName, String basePrice, String eventRating, String datetime)
+			throws ServiceException {
+		if (EventService.validate(auditName, eventName, basePrice, eventRating, datetime)) {
+			throw new ServiceException("Invalid event data");
+		}
+
+		double price = Double.parseDouble(basePrice);
+		EventRating rating = EventRating.valueOf(eventRating);
+		LocalDateTime date = LocalDateTime.parse(datetime);
+		Auditorium auditorium = auditoriumDao.getByName(auditName);
+
+		Event event = new Event();
+		event.setName(eventName);
+		event.setRating(rating);
+		event.setBasePrice(price);
+		event.addAirDateTime(date);
+		event.assignAuditorium(date, auditorium);
+
+		eventDao.save(event);
 	}
 
 }

@@ -10,7 +10,7 @@ public final class DataUtill {
 	}
 
 	public static final Date dateFormatter(String dateStr) throws ParseException {
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		return format.parse(dateStr);
 	}
 }

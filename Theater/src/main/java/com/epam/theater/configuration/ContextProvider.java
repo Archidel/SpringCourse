@@ -6,17 +6,17 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ContextProvider {
-	private static ApplicationContext CONTEXT;
-
+	private static ApplicationContext context;
+	
 	public static void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		CONTEXT = applicationContext;
+		context = applicationContext;
 	}
 
 	public static <T> T getBean(Class<T> beanClass) {
-		return CONTEXT.getBean(beanClass);
+		return context.getBean(beanClass);
 	}
 
 	public static Object getBean(String beanName) {
-		return CONTEXT.getBean(beanName);
+		return context.getBean(beanName);
 	}
 }

@@ -16,15 +16,13 @@ public class EventDaoImpl implements EventDao {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public void save(Event object) {
-		// TODO Auto-generated method stub
+	public void save(Event event) {
 
 	}
 
 	@Override
 	public void remove(Long id) {
-		// TODO Auto-generated method stub
-
+		jdbcTemplate.update("DELETE from event WHERE ev_id = ?", id);
 	}
 
 	@Override
@@ -45,10 +43,5 @@ public class EventDaoImpl implements EventDao {
 		return null;
 	}
 
-	@Override
-	public Long getFreeId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }
