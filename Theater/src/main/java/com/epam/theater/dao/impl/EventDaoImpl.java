@@ -1,5 +1,6 @@
 package com.epam.theater.dao.impl;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,7 +18,7 @@ public class EventDaoImpl implements EventDao {
 
 	@Override
 	public void save(Event event) {
-
+		jdbcTemplate.update("INSERT INTO event (ev_name, ev_price, ev_raiting) VALUES (?, ?, ?)", event.getName(), event.getBasePrice(), event.getRating().toString());
 	}
 
 	@Override
@@ -27,7 +28,6 @@ public class EventDaoImpl implements EventDao {
 
 	@Override
 	public Event getById(Long id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -41,6 +41,18 @@ public class EventDaoImpl implements EventDao {
 	public Event getByName(String name) throws ServiceException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void setAirDatesByEventId(LocalDateTime ldt, Long id) throws ServiceException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setAuditoriumToEvent(Long auditoriumId, Long eventId) throws ServiceException {
+		// TODO Auto-generated method stub
+		
 	}
 
 

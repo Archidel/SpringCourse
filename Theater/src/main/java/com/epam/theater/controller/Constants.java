@@ -8,7 +8,9 @@ public interface Constants {
 
 	String PARAM_NAME_AUDITORIUM_ID = "auditorium.id";
 	String PARAM_NAME_AUDITORIUM_NAME = "auditorium.name";
-
+	String PARAM_NAME_AUDITORIUM_NUMBER_OF_SEATS = "auditorium.numberOfSeats";
+	String PARAM_NAME_AUDITORIUM_VIP_SEATS = "auditorium.vipSeats";
+	
 	String PARAM_NAME_EVENT_NAME = "event.name";
 	String PARAM_NAME_EVENT_ID = "event.id";
 	String PARAM_NAME_EVENT_BASE_PRICE = "event.basePrice";

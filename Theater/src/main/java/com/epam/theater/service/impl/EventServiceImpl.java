@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.epam.theater.bean.Auditorium;
 import com.epam.theater.bean.Event;
@@ -72,6 +73,7 @@ public class EventServiceImpl implements EventService {
 		return event;
 	}
 
+	@Transactional
 	@Override
 	public void save(String auditName, String eventName, String basePrice, String eventRating, String datetime)
 			throws ServiceException {
@@ -92,6 +94,14 @@ public class EventServiceImpl implements EventService {
 		event.assignAuditorium(date, auditorium);
 
 		eventDao.save(event);
+		Long eventId = eventDao.getByName(event.getName()).getId();
+		Long auditoriumId = auditoriumDao.getByName(auditName).getId();
+		
+		for(LocalDateTime ltd : event.getAirDates()) {
+			eventDao.setAirDatesByEventId(ltd, eventId);
+		}
+		
+		eventDao.setAuditoriumToEvent(auditoriumId, eventId);
 	}
 
 }

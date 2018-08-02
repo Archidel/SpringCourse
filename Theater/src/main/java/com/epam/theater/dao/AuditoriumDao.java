@@ -10,4 +10,8 @@ public interface AuditoriumDao {
 
 	public Auditorium getByName(String name);
 
+	void save(Auditorium auditorium);
+
+	void setSeatsByAuditoriumId(Set<Long> vipSeats, Long id);
+
 }

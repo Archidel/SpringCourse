@@ -16,6 +16,9 @@ import static com.epam.theater.controller.Constants.PARAM_NAME_EVENT_ID;
 import static com.epam.theater.controller.Constants.PARAM_NAME_EVENT_BASE_PRICE;
 import static com.epam.theater.controller.Constants.PARAM_NAME_EVENT_DATETIME;
 import static com.epam.theater.controller.Constants.PARAM_NAME_EVENT_RATING;
+import static com.epam.theater.controller.Constants.PARAM_NAME_AUDITORIUM_NUMBER_OF_SEATS;
+import static com.epam.theater.controller.Constants.PARAM_NAME_AUDITORIUM_VIP_SEATS;
+
 
 public class Application {
 
@@ -71,6 +74,16 @@ public class Application {
 		// ### Auditorium functionality ##
 		// ###############################
 
+		// Auditorium save
+/*		requestParam.put(PARAM_NAME_AUDITORIUM_NAME, "audit1");
+		requestParam.put(PARAM_NAME_AUDITORIUM_NUMBER_OF_SEATS, "50");
+		requestParam.put(PARAM_NAME_AUDITORIUM_VIP_SEATS, "1,2,3,4,5,6,7,8,9,10");
+		
+		command = Controller.getCommand("save_auditorium");
+		response = command.execute(requestParam);
+		printResponse(response);*/
+		
+		
 		// Auditorium getAll
 		command = Controller.getCommand("get_all_auditoriums");
 		response = command.execute(requestParam);
