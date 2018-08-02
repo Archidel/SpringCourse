@@ -35,14 +35,14 @@ public class Application {
 		// ###############################
 
 		// Save user
-		/*
-		 * requestParam.put(PARAM_NAME_USER_NAME, "Albert");
-		 * requestParam.put(PARAM_NAME_USER_SURNAME, "Zarankovich");
-		 * requestParam.put(PARAM_NAME_USER_EMAIL, "Albert_Zarankovich@epam.com");
-		 * 
-		 * command = Controller.getCommand("save_user"); response =
-		 * command.execute(requestParam); printResponse(response);
-		 */
+		
+		  requestParam.put(PARAM_NAME_USER_NAME, "Albert");
+		  requestParam.put(PARAM_NAME_USER_SURNAME, "Zarankovich");
+		  requestParam.put(PARAM_NAME_USER_EMAIL, "Albert_Zarankovich@epam.com");
+		  
+		  command = Controller.getCommand("save_user"); response =
+		  command.execute(requestParam); printResponse(response);
+		 
 
 		// Get all users
 		command = Controller.getCommand("get_all_users");
@@ -75,13 +75,13 @@ public class Application {
 		// ###############################
 
 		// Auditorium save
-/*		requestParam.put(PARAM_NAME_AUDITORIUM_NAME, "audit1");
+		requestParam.put(PARAM_NAME_AUDITORIUM_NAME, "audit1");
 		requestParam.put(PARAM_NAME_AUDITORIUM_NUMBER_OF_SEATS, "50");
 		requestParam.put(PARAM_NAME_AUDITORIUM_VIP_SEATS, "1,2,3,4,5,6,7,8,9,10");
 		
 		command = Controller.getCommand("save_auditorium");
 		response = command.execute(requestParam);
-		printResponse(response);*/
+		printResponse(response);
 		
 		
 		// Auditorium getAll

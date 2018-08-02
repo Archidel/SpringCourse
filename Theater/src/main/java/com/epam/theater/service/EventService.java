@@ -14,7 +14,6 @@ public interface EventService extends AbstractDomainObjectService<Event> {
 				|| checkString(datetime);
 	}
 
-	
 	Event getByName(String name) throws ServiceException;
 
 	void save(String auditName, String eventName, String basePrice, String eventRating, String datetime)
