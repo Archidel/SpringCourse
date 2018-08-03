@@ -12,7 +12,6 @@ import static com.epam.theater.controller.Constants.PARAM_NAME_USER_EMAIL;
 import static com.epam.theater.controller.Constants.PARAM_NAME_USER_ID;
 import static com.epam.theater.controller.Constants.PARAM_NAME_AUDITORIUM_NAME;
 import static com.epam.theater.controller.Constants.PARAM_NAME_EVENT_NAME;
-import static com.epam.theater.controller.Constants.PARAM_NAME_EVENT_ID;
 import static com.epam.theater.controller.Constants.PARAM_NAME_EVENT_BASE_PRICE;
 import static com.epam.theater.controller.Constants.PARAM_NAME_EVENT_DATETIME;
 import static com.epam.theater.controller.Constants.PARAM_NAME_EVENT_RATING;
@@ -37,13 +36,13 @@ public class Application {
 
 		// Save user
 		
-/*		  requestParam.put(PARAM_NAME_USER_NAME, "Albert");
-		  requestParam.put(PARAM_NAME_USER_SURNAME, "Zarankovich");
-		  requestParam.put(PARAM_NAME_USER_EMAIL, "Albert_Zarankovich@epam.com");
-		  
-		  command = Controller.getCommand("save_user"); response =
-		  command.execute(requestParam); printResponse(response);
-		 */
+		requestParam.put(PARAM_NAME_USER_NAME, "Albert");
+		requestParam.put(PARAM_NAME_USER_SURNAME, "Zarankovich");
+		requestParam.put(PARAM_NAME_USER_EMAIL, "Albert_Zarankovich@epam.com");
+
+		command = Controller.getCommand("save_user");
+		response = command.execute(requestParam);
+		printResponse(response);
 
 		// Get all users
 		command = Controller.getCommand("get_all_users");
@@ -69,14 +68,13 @@ public class Application {
 		// ###############################
 
 		// Auditorium save
-/*		requestParam.put(PARAM_NAME_AUDITORIUM_NAME, "audit1");
+		requestParam.put(PARAM_NAME_AUDITORIUM_NAME, "audit66");
 		requestParam.put(PARAM_NAME_AUDITORIUM_NUMBER_OF_SEATS, "50");
 		requestParam.put(PARAM_NAME_AUDITORIUM_VIP_SEATS, "1,2,3,4,5,6,7,8,9,10");
-		
+	
 		command = Controller.getCommand("save_auditorium");
 		response = command.execute(requestParam);
 		printResponse(response);
-	*/	
 		
 		// Auditorium getAll
 		command = Controller.getCommand("get_all_auditoriums");
@@ -84,7 +82,7 @@ public class Application {
 		printResponse(response);
 
 		// Auditorium getByName
-		requestParam.put(PARAM_NAME_AUDITORIUM_NAME, "audit1");
+		requestParam.put(PARAM_NAME_AUDITORIUM_NAME, "audit66");
 
 		command = Controller.getCommand("get_auditorium_by_name");
 		response = command.execute(requestParam);
@@ -95,18 +93,18 @@ public class Application {
 		// ###############################
 
 		// Event save
-/*		requestParam.put(PARAM_NAME_AUDITORIUM_NAME, "audit1");
-		requestParam.put(PARAM_NAME_EVENT_NAME, "Event #2");
+		requestParam.put(PARAM_NAME_AUDITORIUM_NAME, "audit66");
+		requestParam.put(PARAM_NAME_EVENT_NAME, "Event #9");
 		requestParam.put(PARAM_NAME_EVENT_BASE_PRICE, "666");
 		requestParam.put(PARAM_NAME_EVENT_RATING, "HIGH");
-		requestParam.put(PARAM_NAME_EVENT_DATETIME, "2018-10-09T10:45");
+		requestParam.put(PARAM_NAME_EVENT_DATETIME, "2018-07-09T10:45");
 
 		command = Controller.getCommand("save_event");
 		response = command.execute(requestParam);
 		printResponse(response);
-*/
+
 		// Event get by name
-		requestParam.put(PARAM_NAME_EVENT_NAME, "Event #1");
+		requestParam.put(PARAM_NAME_EVENT_NAME, "Event #9");
 
 		command = Controller.getCommand("get_event_by_name");
 		response = command.execute(requestParam);
@@ -122,8 +120,8 @@ public class Application {
 		// ###############################
 
 		// getPrice
-		requestParam.put(PARAM_NAME_EVENT_NAME, "Event #1");
-		requestParam.put(PARAM_NAME_EVENT_DATETIME, "2018-07-09T10:45");
+		requestParam.put(PARAM_NAME_EVENT_NAME, "Event #9");
+		requestParam.put(PARAM_NAME_EVENT_DATETIME, "2018-01-09T10:45");
 		requestParam.put(PARAM_NAME_USER_EMAIL, "Albert_Zarankovich@epam.com");
 		requestParam.put(PARAM_NAME_USER_SEATS, "50");
 		
@@ -132,7 +130,7 @@ public class Application {
 		printResponse(response);
 		
 		// booking ticket
-		requestParam.put(PARAM_NAME_EVENT_NAME, "Event #1");
+		requestParam.put(PARAM_NAME_EVENT_NAME, "Event #9");
 		requestParam.put(PARAM_NAME_EVENT_DATETIME, "2018-07-09T10:45");
 		requestParam.put(PARAM_NAME_USER_EMAIL, "Albert_Zarankovich@epam.com");
 		requestParam.put(PARAM_NAME_TICKET_SEAT, "66");
@@ -143,7 +141,7 @@ public class Application {
 		
 		
 		// getPurchesTickes
-		requestParam.put(PARAM_NAME_EVENT_NAME, "Event #1");
+		requestParam.put(PARAM_NAME_EVENT_NAME, "Event #9");
 		requestParam.put(PARAM_NAME_EVENT_DATETIME, "2018-07-09T10:45");
 		
 		command = Controller.getCommand("get_purchased_tickets");
@@ -152,7 +150,7 @@ public class Application {
 		
 		
 		// getDiscount
-		requestParam.put(PARAM_NAME_EVENT_NAME, "Event #1");
+		requestParam.put(PARAM_NAME_EVENT_NAME, "Event #9");
 		requestParam.put(PARAM_NAME_USER_EMAIL, "Albert_Zarankovich@epam.com");
 		requestParam.put(PARAM_NAME_USER_SEATS, "1");
 		requestParam.put(PARAM_NAME_EVENT_DATETIME, "2018-07-09T10:45");
