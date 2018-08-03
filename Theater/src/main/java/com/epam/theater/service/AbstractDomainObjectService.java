@@ -5,6 +5,8 @@ import com.epam.theater.bean.DomainObject;
 import com.epam.theater.service.exception.ServiceException;
 
 public interface AbstractDomainObjectService<T extends DomainObject> {
+	String SEPARATOR = ",";
+	
 	void remove(String id) throws ServiceException;
 
 	T getById(String id) throws ServiceException;

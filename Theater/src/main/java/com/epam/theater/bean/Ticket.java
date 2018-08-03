@@ -3,11 +3,14 @@ package com.epam.theater.bean;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Ticket extends DomainObject implements Comparable<Ticket> {
+public class Ticket extends DomainObject {
 	private User user;
 	private Event event;
 	private LocalDateTime dateTime;
 	private long seat;
+
+	public Ticket() {
+	}
 
 	public Ticket(User user, Event event, LocalDateTime dateTime, long seat) {
 		this.user = user;
@@ -69,25 +72,26 @@ public class Ticket extends DomainObject implements Comparable<Ticket> {
 		return true;
 	}
 
-	@Override
-	public int compareTo(Ticket other) {
-		if (other == null) {
-			return 1;
-		}
-		int result = dateTime.compareTo(other.getDateTime());
-
-		if (result == 0) {
-			result = event.getName().compareTo(other.getEvent().getName());
-		}
-		if (result == 0) {
-			result = Long.compare(seat, other.getSeat());
-		}
-		return result;
-	}
-
+	
 	@Override
 	public String toString() {
-		return "Ticket [user's email=" + user.getEmail() + ", dateTime=" + dateTime + ", seat=" + seat + "]";
+		return "Ticket [dateTime=" + dateTime + ", seat=" + seat + "]";
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public void setEvent(Event event) {
+		this.event = event;
+	}
+
+	public void setDateTime(LocalDateTime dateTime) {
+		this.dateTime = dateTime;
+	}
+
+	public void setSeat(long seat) {
+		this.seat = seat;
 	}
 
 }

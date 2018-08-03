@@ -1,10 +1,16 @@
 package com.epam.theater.service;
 
-import java.time.LocalDateTime;
-
-import com.epam.theater.bean.Event;
-import com.epam.theater.bean.User;
+import com.epam.theater.service.exception.ServiceException;
 
 public interface DiscountService {
-	byte getDiscount(User user, Event event, LocalDateTime airDateTime, long numberOfTickets);
+	byte getDiscount(String userEmail, String eventName, String airDateTime, String numberOfTickets) throws ServiceException;
+	
+	static boolean validate(String userEmail, String eventName, String airDateTime, String numberOfTickets) {
+		return checkString(userEmail) || checkString(eventName) || checkString(airDateTime) || checkString(numberOfTickets);
+	}
+
+	static boolean checkString(String input) {
+		return (input == null || input.isEmpty());
+	}
+	
 }

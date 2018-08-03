@@ -1,7 +1,6 @@
 package com.epam.theater.dao.impl;
 
 import java.util.Collection;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -28,20 +27,17 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User getById(Long id) {
-		User user = (User) jdbcTemplate.queryForObject("SELECT * FROM user where u_id = ? ", new Object[] { id }, new UserRowMapper());
-		return user;
+		return (User) jdbcTemplate.queryForObject("SELECT * FROM user where u_id = ? ", new Object[] { id }, new UserRowMapper());
 	}
 
 	@Override
 	public Collection<User> getAll() {
-		List<User> persons = jdbcTemplate.query("SELECT * FROM user", new UserRowMapper());
-		return persons;
+		return jdbcTemplate.query("SELECT * FROM user", new UserRowMapper());
 	}
 
 	@Override
 	public User getUserByEmail(String email) {
-		User user = (User) jdbcTemplate.queryForObject("SELECT * FROM user where u_email = ? ", new Object[] { email }, new UserRowMapper());
-		return user;
+		return (User) jdbcTemplate.queryForObject("SELECT * FROM user where u_email = ? ", new Object[] { email }, new UserRowMapper());
 	}
 
 }

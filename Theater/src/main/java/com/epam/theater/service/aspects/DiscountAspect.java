@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.epam.theater.bean.User;
+import com.epam.theater.dao.UserDao;
 
 @Aspect
 @Component
@@ -15,13 +16,18 @@ public class DiscountAspect {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	@After("execution(* com.epam.theater.service.DiscountService.getDiscount(..)) && (args(user,..))")
-	public void count(User user) {
+	@Autowired
+	private UserDao userDao;
+	
+	@After("execution(* com.epam.theater.service.DiscountService.getDiscount(..)) && (args(userEmail,..))")
+	public void count(String userEmail) {
+		User user = userDao.getUserByEmail(userEmail);
 		int count = jdbcTemplate.queryForObject("SELECT count(*) FROM statistic_discount WHERE sd_user_email = ?", new Object[] { user.getEmail() }, Integer.class);
+
 		if(count == 0) {
-			jdbcTemplate.update("UPDATE statistic_discount SET cs_user_discount = cs_user_discount + 1 where cs_user_email = ?", new Object[] { user.getEmail() }, String.class);
+			jdbcTemplate.update("INSERT INTO statistic_discount (sd_user_email, sd_user_discount) VALUES (?, ?)", user.getEmail(), 1);
 		}else {
-			jdbcTemplate.update("INSERT INTO statistic_discount (sd_user_email, cs_user_discount) VALUES (?, ?)", user.getEmail(), 1);
+			jdbcTemplate.update("UPDATE statistic_discount SET sd_user_discount = sd_user_discount + 1 where sd_user_email = ?", user.getEmail());
 		}
 	}
 }

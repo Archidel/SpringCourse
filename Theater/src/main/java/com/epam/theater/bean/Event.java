@@ -18,6 +18,13 @@ public class Event extends DomainObject {
 	public Event() {
 	}
 
+	public Event(String name, double basePrice, EventRating rating) {
+		super();
+		this.name = name;
+		this.basePrice = basePrice;
+		this.rating = rating;
+	}
+
 	public Event(String name, NavigableSet<LocalDateTime> airDates, double basePrice, EventRating rating,
 			NavigableMap<LocalDateTime, Auditorium> auditoriums) {
 		this.name = name;

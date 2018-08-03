@@ -1,9 +1,13 @@
 package com.epam.theater.dao.impl;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
@@ -22,14 +26,12 @@ public class AuditoriumDaoImpl implements AuditoriumDao {
 
 	@Override
 	public Set<Auditorium> getAll() {
-		Set<Auditorium> auditoriums = new HashSet<Auditorium>(jdbcTemplate.query("SELECT * FROM auditorium", new AuditoriumRowMapper()));
-		return auditoriums;
+		return new HashSet<Auditorium>(jdbcTemplate.query("SELECT * FROM auditorium", new AuditoriumRowMapper()));
 	}
 
 	@Override
 	public Auditorium getByName(String name) {
-		Auditorium auditorium = (Auditorium) jdbcTemplate.queryForObject("SELECT * FROM auditorium where au_name = ? ", new Object[] { name }, new AuditoriumRowMapper());
-		return auditorium;
+		return (Auditorium) jdbcTemplate.queryForObject("SELECT * FROM auditorium where au_name = ? ", new Object[] { name }, new AuditoriumRowMapper());
 	}
 
 	@Override
@@ -57,4 +59,22 @@ public class AuditoriumDaoImpl implements AuditoriumDao {
 		});
 	}
 
+	@Override
+	public Auditorium getByDate(Date date) {
+		Auditorium auditorium =  (Auditorium) jdbcTemplate.queryForObject(" select * from auditorium audit inner join auditorium_has_auditorium_date ahad on ahad.aud_id = audit.au_id inner join auditorium_date auditDate on auditDate.aud_id = ahad.aud_id where auditDate.aud_date = ?", new Object[] { date }, new AuditoriumRowMapper());
+		auditorium.setVipSeats(getAuditVipSeatsByAuditId(auditorium.getId()));
+		return auditorium;
+	}
+
+	private Set<Long> getAuditVipSeatsByAuditId(Long id) {
+		Set<Long> vipSeats = new TreeSet<Long>();
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList("select * from auditorium audit inner join vipSeats vip on audit.au_id = vip.au_id where audit.au_id = ?", id);
+
+		for (Map<String, Object> one : rows) {
+			vipSeats.add(((Integer) one.get("vp_seat_number")).longValue());
+		}
+
+		return vipSeats;
+	}
+	
 }

@@ -42,6 +42,8 @@ public class UserServiceImpl implements UserService {
 		}
 
 		User user = userDao.getUserByEmail(email);
+		
+		
 
 		if (user == null) {
 			throw new ServiceException("User not found");

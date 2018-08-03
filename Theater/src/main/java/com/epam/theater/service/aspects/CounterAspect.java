@@ -16,16 +16,16 @@ public class CounterAspect {
 
 	@After("execution(* com.epam.theater.service.EventService.getByName(..))")
 	public void getByName() {
-		jdbcTemplate.update("UPDATE statistic_counter SET cs_get_name_times = cs_get_name_times + 1");
+		jdbcTemplate.update("UPDATE statistic_counter SET cs_get_name_times = cs_get_name_times + 1 where cs_id = 1");
 	}
 
 	@Before("execution(* com.epam.theater.service.BookingService.bookTickets(..))")
 	public void bookTickets() {
-		jdbcTemplate.update("UPDATE statistic_counter SET cs_ticket_was_booking_times = cs_ticket_was_booking_times + 1");
+		jdbcTemplate.update("UPDATE statistic_counter SET cs_ticket_was_booking_times = cs_ticket_was_booking_times + 1 where cs_id = 1");
 	}
 
 	@Before("execution(* com.epam.theater.service.BookingService.getTicketsPrice(..))")
 	public void getTicketsPrice() {
-		jdbcTemplate.update("UPDATE statistic_counter SET cs_get_price_times = cs_get_price_times + 1");
+		jdbcTemplate.update("UPDATE statistic_counter SET cs_get_price_times = cs_get_price_times + 1 where cs_id = 1");
 	}
 }

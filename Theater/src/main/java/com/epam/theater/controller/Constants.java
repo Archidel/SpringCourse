@@ -5,6 +5,9 @@ public interface Constants {
 	String PARAM_NAME_USER_NAME = "user.name";
 	String PARAM_NAME_USER_SURNAME = "user.surname";
 	String PARAM_NAME_USER_EMAIL = "user.email";
+	String PARAM_NAME_USER_SEATS = "user.seats";
+	
+	String PARAM_NAME_TICKET_SEAT = "ticket.seat";
 
 	String PARAM_NAME_AUDITORIUM_ID = "auditorium.id";
 	String PARAM_NAME_AUDITORIUM_NAME = "auditorium.name";

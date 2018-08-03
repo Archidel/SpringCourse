@@ -86,22 +86,19 @@ public class EventServiceImpl implements EventService {
 		LocalDateTime date = LocalDateTime.parse(datetime);
 		Auditorium auditorium = auditoriumDao.getByName(auditName);
 
-		Event event = new Event();
-		event.setName(eventName);
-		event.setRating(rating);
-		event.setBasePrice(price);
+		Event event = new Event(eventName, price, rating);
 		event.addAirDateTime(date);
 		event.assignAuditorium(date, auditorium);
 
 		eventDao.save(event);
-		Long eventId = eventDao.getByName(event.getName()).getId();
-		Long auditoriumId = auditoriumDao.getByName(auditName).getId();
-		
-		for(LocalDateTime ltd : event.getAirDates()) {
-			eventDao.setAirDatesByEventId(ltd, eventId);
+		Long eventId = eventDao.getByName(eventName).getId();
+		Long auditId = auditoriumDao.getByName(auditName).getId();
+
+		for (LocalDateTime ltd : event.getAirDates()) {
+			eventDao.addAirDatesByEventId(ltd, eventId);
 		}
-		
-		eventDao.setAuditoriumToEvent(auditoriumId, eventId);
+
+		eventDao.addAuditoriumToEvent(auditId, eventId);
 	}
 
 }
